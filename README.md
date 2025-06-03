@@ -1,6 +1,6 @@
 # Hamza Bin Maqsood - Portfolio
 
-[![Live Portfolio](https://img.shields.io/badge/portfolio-live-brightgreen)](https://your-username.github.io/portfolio)
+[![Live Portfolio](https://img.shields.io/badge/portfolio-live-brightgreen)](https://hamzabinmaqsood.github.io/Hamza-Bin-Maqsood-Portfolio/)
 
 Professional portfolio showcasing my web development projects and skills.
 
