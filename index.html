@@ -417,6 +417,165 @@
             gap: 10px;
             margin-top: auto;
         }
+        
+        /* Project Category Tabs */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .category-tab {
+            padding: 15px 30px;
+            background: rgba(255, 152, 0, 0.1);
+            border: none;
+            border-radius: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-tab:hover, .category-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .category-tab i {
+            font-size: 1.3rem;
+        }
+        
+        /* Category Description */
+        .category-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        /* Add Project Button */
+        .add-project-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px auto 0;
+            padding: 12px 30px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-project-btn:hover {
+            background: #3d8b40;
+            transform: translateY(-3px);
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: none;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 25px 30px;
+        }
+        
+        .dark-mode .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-title {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        
+        .dark-mode .form-label {
+            color: var(--light);
+        }
+        
+        .form-control, .form-select {
+            background: var(--body-bg);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .form-control, .dark-mode .form-select {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+            outline: none;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+        }
+        
+        .dark-mode .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-modal {
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-modal-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-modal-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-modal-secondary {
+            background: transparent;
+            color: var(--gray);
+            border: 1px solid var(--gray);
+        }
+        
+        .btn-modal-secondary:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark-mode .btn-modal-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
 
         /* Contact Section */
         #contact {
@@ -633,31 +792,6 @@
             transform: translateY(0);
         }
 
-        /* Project Filter */
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .filter-btn {
-            padding: 8px 20px;
-            background: rgba(255, 152, 0, 0.1);
-            border: none;
-            border-radius: 30px;
-            color: var(--primary);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-        
         /* Toast Notification */
         .toast {
             position: fixed;
@@ -742,6 +876,17 @@
 
             .project-buttons {
                 flex-direction: column;
+            }
+            
+            .category-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-tab {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
             }
         }
 
@@ -966,18 +1111,33 @@
                 <p>Here are some of my recent work and personal projects</p>
             </div>
             
-            <!-- Project Filter -->
-            <div class="filter-container">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="react">React</button>
-                <button class="filter-btn" data-filter="vue">Vue.js</button>
-                <button class="filter-btn" data-filter="mobile">Mobile</button>
-                <button class="filter-btn" data-filter="dashboard">Dashboard</button>
+            <!-- Category Tabs -->
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="shopify">
+                    <i class="fab fa-shopify"></i> Shopify Demo Stores
+                </button>
+                <button class="category-tab" data-category="landing">
+                    <i class="fas fa-window-restore"></i> Landing Page Projects
+                </button>
+                <button class="category-tab" data-category="frontend">
+                    <i class="fas fa-laptop-code"></i> Front-End & UI Work
+                </button>
             </div>
             
+            <!-- Category Description -->
+            <div class="category-description" id="category-description">
+                Professional Shopify demo stores showcasing e-commerce solutions and custom themes
+            </div>
+            
+            <!-- Projects Container -->
             <div class="row" id="projects-container">
                 <!-- Projects will be dynamically loaded here -->
             </div>
+            
+            <!-- Add Project Button -->
+            <button class="add-project-btn" data-bs-toggle="modal" data-bs-target="#projectModal">
+                <i class="fas fa-plus"></i> Add New Project
+            </button>
         </div>
     </section>
 
@@ -1086,11 +1246,70 @@
             <p class="copyright">&copy; <span id="current-year"></span> Hamza Bin Maqsood. All rights reserved.</p>
         </div>
     </footer>
+    
+    <!-- Add Project Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalLabel">Add New Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="projectForm">
+                        <div class="mb-3">
+                            <label for="projectTitle" class="form-label">Project Title</label>
+                            <input type="text" class="form-control" id="projectTitle" placeholder="Enter project title" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="projectCategory" class="form-label">Category</label>
+                            <select class="form-select" id="projectCategory" required>
+                                <option value="">Select category</option>
+                                <option value="shopify">Shopify Demo Stores</option>
+                                <option value="landing">Landing Page Projects</option>
+                                <option value="frontend">Front-End & UI Work</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="projectDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="projectDescription" rows="3" placeholder="Enter project description" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="projectImage" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="projectImage" placeholder="Enter image URL" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="projectLiveUrl" class="form-label">Live Preview URL</label>
+                            <input type="url" class="form-control" id="projectLiveUrl" placeholder="Enter live preview URL" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="projectFeatures" class="form-label">Features (one per line)</label>
+                            <textarea class="form-control" id="projectFeatures" rows="4" placeholder="Enter project features (one per line)" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="projectTags" class="form-label">Tags (comma separated)</label>
+                            <input type="text" class="form-control" id="projectTags" placeholder="Enter tags (e.g., React, Bootstrap, UI)" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-modal btn-modal-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-modal btn-modal-primary" id="saveProjectBtn">Save Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Project data - could be loaded from an external API
+        // Project data with categories
         const projectsData = [
             {
                 id: 1,
@@ -1102,7 +1321,7 @@
                     "Customer behavior tracking and insights"
                 ],
                 tags: ["React", "Redux", "Chart.js", "Node.js"],
-                categories: ["dashboard", "react"],
+                category: "frontend",
                 liveUrl: "https://hamzabinmaqsood.github.io/ecommerce-dashboard/",
                 githubUrl: "https://github.com/Hamzabinmaqsood/ecommerce-dashboard",
                 image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
@@ -1117,7 +1336,7 @@
                     "File attachments and comments on tasks"
                 ],
                 tags: ["Vue.js", "Firebase", "Tailwind CSS"],
-                categories: ["vue"],
+                category: "frontend",
                 liveUrl: "https://hamzabinmaqsood.github.io/task-management-app/",
                 githubUrl: "https://github.com/Hamzabinmaqsood/task-management-app",
                 image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
@@ -1132,7 +1351,7 @@
                     "Progress visualization with charts"
                 ],
                 tags: ["React Native", "GraphQL", "MongoDB"],
-                categories: ["mobile", "react"],
+                category: "frontend",
                 liveUrl: "https://hamzabinmaqsood.github.io/fitness-tracker/",
                 githubUrl: "https://github.com/Hamzabinmaqsood/fitness-tracker",
                 image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
@@ -1147,12 +1366,79 @@
                     "Interactive weather maps"
                 ],
                 tags: ["React", "API Integration", "Geolocation"],
-                categories: ["react", "mobile"],
+                category: "frontend",
                 liveUrl: "https://hamzabinmaqsood.github.io/Weather-Forecast-App/",
                 githubUrl: "https://github.com/Hamzabinmaqsood/Weather-Forecast-App",
                 image: "https://images.unsplash.com/photo-1601134467661-3d775b999c8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 5,
+                title: "Fashion Store",
+                description: "Shopify store for a fashion brand with custom theme and product filtering.",
+                features: [
+                    "Responsive product catalog",
+                    "Custom theme with unique styling",
+                    "Advanced filtering options"
+                ],
+                tags: ["Shopify", "Liquid", "CSS", "JavaScript"],
+                category: "shopify",
+                liveUrl: "https://example-shopify-store.com/",
+                githubUrl: "#",
+                image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 6,
+                title: "Tech Gadgets Store",
+                description: "Shopify store for tech gadgets with custom checkout process.",
+                features: [
+                    "Customized checkout flow",
+                    "Product bundles and promotions",
+                    "Inventory management integration"
+                ],
+                tags: ["Shopify", "Liquid", "API Integration"],
+                category: "shopify",
+                liveUrl: "https://tech-shopify-store.com/",
+                githubUrl: "#",
+                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 7,
+                title: "SaaS Product Landing Page",
+                description: "Landing page for a SaaS product with conversion-focused design.",
+                features: [
+                    "Clear value proposition",
+                    "Testimonials section",
+                    "Pricing table with comparisons"
+                ],
+                tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
+                category: "landing",
+                liveUrl: "https://saas-landing-page.com/",
+                githubUrl: "https://github.com/Hamzabinmaqsood/saas-landing",
+                image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 8,
+                title: "Mobile App Landing Page",
+                description: "Landing page for a mobile application with app store badges and feature showcase.",
+                features: [
+                    "App feature highlights",
+                    "Download buttons for app stores",
+                    "FAQ section"
+                ],
+                tags: ["HTML", "CSS", "JavaScript"],
+                category: "landing",
+                liveUrl: "https://mobile-app-landing.com/",
+                githubUrl: "https://github.com/Hamzabinmaqsood/mobile-landing",
+                image: "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
             }
         ];
+        
+        // Category descriptions
+        const categoryDescriptions = {
+            shopify: "Professional Shopify demo stores showcasing e-commerce solutions and custom themes",
+            landing: "High-conversion landing pages designed to engage visitors and drive action",
+            frontend: "Interactive web applications and UI components built with modern frontend technologies"
+        };
 
         // Dark Mode Toggle
         const darkModeToggle = document.getElementById('darkModeToggle');
@@ -1283,36 +1569,53 @@
             animateOnScroll();
         });
         
-        // Project filtering functionality
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const projectsContainer = document.getElementById('projects-container');
+        // Category tabs functionality
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const categoryDescription = document.getElementById('category-description');
+        let currentCategory = 'shopify';
         
-        // Load projects initially
-        renderProjects(projectsData);
+        // Set initial category
+        renderProjects(filterProjects(currentCategory));
+        categoryDescription.textContent = categoryDescriptions[currentCategory];
         
-        // Add event listeners to filter buttons
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active button
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+        // Add event listeners to category tabs
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
                 
-                // Filter projects
-                const filter = btn.dataset.filter;
-                if (filter === 'all') {
-                    renderProjects(projectsData);
-                } else {
-                    const filteredProjects = projectsData.filter(project => 
-                        project.categories.includes(filter)
-                    );
-                    renderProjects(filteredProjects);
-                }
+                // Update category
+                currentCategory = tab.dataset.category;
+                
+                // Update description
+                categoryDescription.textContent = categoryDescriptions[currentCategory];
+                
+                // Render projects for this category
+                renderProjects(filterProjects(currentCategory));
             });
         });
         
+        // Filter projects by category
+        function filterProjects(category) {
+            return projectsData.filter(project => project.category === category);
+        }
+        
         // Render projects function
         function renderProjects(projects) {
+            const projectsContainer = document.getElementById('projects-container');
             projectsContainer.innerHTML = '';
+            
+            if (projects.length === 0) {
+                projectsContainer.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-folder-open fa-3x mb-3" style="color: var(--gray);"></i>
+                        <h4>No projects in this category</h4>
+                        <p>Add a new project using the button below</p>
+                    </div>
+                `;
+                return;
+            }
             
             projects.forEach(project => {
                 const projectCard = document.createElement('div');
@@ -1343,6 +1646,51 @@
                 projectsContainer.appendChild(projectCard);
             });
         }
+        
+        // Add new project functionality
+        const saveProjectBtn = document.getElementById('saveProjectBtn');
+        const projectForm = document.getElementById('projectForm');
+        
+        saveProjectBtn.addEventListener('click', () => {
+            // Get form values
+            const title = document.getElementById('projectTitle').value;
+            const category = document.getElementById('projectCategory').value;
+            const description = document.getElementById('projectDescription').value;
+            const image = document.getElementById('projectImage').value;
+            const liveUrl = document.getElementById('projectLiveUrl').value;
+            const features = document.getElementById('projectFeatures').value.split('\n').filter(line => line.trim() !== '');
+            const tags = document.getElementById('projectTags').value.split(',').map(tag => tag.trim());
+            
+            // Create new project object
+            const newProject = {
+                id: projectsData.length + 1,
+                title,
+                description,
+                features,
+                tags,
+                category,
+                liveUrl,
+                image
+            };
+            
+            // Add to projects array
+            projectsData.push(newProject);
+            
+            // Show success message
+            showToast('Project added successfully!', 'success');
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('projectModal'));
+            modal.hide();
+            
+            // Reset form
+            projectForm.reset();
+            
+            // If we're on the same category, update the view
+            if (currentCategory === category) {
+                renderProjects(filterProjects(currentCategory));
+            }
+        });
         
         // Animate elements on scroll
         function animateOnScroll() {
