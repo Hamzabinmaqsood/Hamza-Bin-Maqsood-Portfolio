@@ -1,23 +1,46 @@
-# Hamza Bin Maqsood - Portfolio
+# Hamza Bin Maqsood Portfolio v2
 
-[![Live Portfolio](https://img.shields.io/badge/portfolio-live-brightgreen)](https://hamzabinmaqsood.github.io/Hamza-Bin-Maqsood-Portfolio/)
+Professional modular portfolio for Python Backend / AI Backend positioning.
 
-Professional portfolio showcasing my web development projects and skills.
+## Structure
 
-## Featured Projects
-- [Fitness Tracker](https://github.com/Hamzabinmaqsood/fitness-tracker)
-- [Task Management App](https://github.com/Hamzabinmaqsood/task-management-app)
-- [E-Commerce Dashboard](https://github.com/Hamzabinmaqsood/ecommerce-dashboard)
-- [Weather Forecast App](https://github.com/Hamzabinmaqsood/Weather-Forecast-App)
+```text
+hamza-portfolio-v2/
+├── index.html
+├── README.md
+└── assets/
+    ├── css/
+    │   ├── main.css
+    │   └── responsive.css
+    ├── docs/
+    │   └── Hamza_Bin_Maqsood_CV.pdf
+    ├── images/
+    │   ├── hamza-profile.png
+    │   └── linkedin-banner.png
+    └── js/
+        ├── data.js
+        └── main.js
+```
 
-## Technologies
-- HTML5
-- CSS3 (Flexbox, Grid)
-- JavaScript
-- Bootstrap 5
-- Chart.js
+## How to edit
 
-## Setup
-```bash
-git clone https://github.com/your-username/portfolio.git
-open index.html
+- Change profile text in `index.html`.
+- Change projects, skills, and experience in `assets/js/data.js`.
+- Change design/colors/layout in `assets/css/main.css`.
+- Change mobile responsiveness in `assets/css/responsive.css`.
+- Replace CV in `assets/docs/Hamza_Bin_Maqsood_CV.pdf`.
+- Replace images in `assets/images/`.
+
+## GitHub Pages deployment
+
+1. Copy these files into your portfolio repository.
+2. Commit and push.
+3. Go to GitHub repo → Settings → Pages.
+4. Select branch: `main` and folder: `/root`.
+5. Save and wait for deployment.
+
+## Recommended next improvements
+
+- Add real GitHub repository links for each project.
+- Add screenshots/GIFs for strong projects.
+- Add case-study pages later for Tourista and KissanKiPeychan.
