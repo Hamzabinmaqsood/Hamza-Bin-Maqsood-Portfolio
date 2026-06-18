@@ -65,7 +65,8 @@ const portfolioData = {
       role: "Full Stack Developer Intern",
       company: "Hi-Tech Solution",
       points: [
-        "Worked on web application features involving frontend, backend logic, and database operations.",
+        "Worked on a full-stack Python web application involving frontend pages, backend logic, SQLite database operations, CRUD functionality, form handling, validation, search, and debugging. Built a Student Records Management System to understand complete full-stack workflows, routing, database connectivity, and software architecture.",
+        
         "Practiced CRUD operations, form handling, validation, and debugging.",
         "Improved understanding of full-stack workflows and software architecture."
       ],
