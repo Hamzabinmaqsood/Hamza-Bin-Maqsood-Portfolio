@@ -1,0 +1,117 @@
+# GitHub-connected CMS: https://app.pagescms.org
+# Sign in with GitHub and select this repository. Only authorized GitHub users can edit.
+media:
+  - name: certificate_images
+    label: Certificate thumbnails
+    input: assets/images/certificates
+    output: assets/images/certificates
+    categories: [image]
+  - name: certificate_documents
+    label: Certificate original documents
+    input: assets/docs/certificates
+    output: assets/docs/certificates
+    categories: [image, document]
+content:
+  - name: site
+    label: Profile & About Text
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - {name: seoTitle, label: Google page title, type: string}
+      - {name: seoDescription, label: Google meta description, type: text}
+      - {name: heroIntro, label: Short introduction, type: string}
+      - {name: heroOpening, label: Headline opening, type: string}
+      - {name: heroAccent, label: Highlight word, type: string}
+      - {name: heroClosing, label: Headline closing, type: string}
+      - {name: heroDescription, label: Hero description, type: text}
+      - {name: aboutParagraph1, label: About paragraph 1, type: text}
+      - {name: aboutParagraph2, label: About paragraph 2, type: text}
+      - {name: location, label: Location, type: string}
+      - {name: contactDescription, label: Contact text, type: text}
+      - {name: email, label: Contact email, type: string}
+  - name: skills
+    label: Skills & Technologies
+    type: file
+    path: content/skills.json
+    format: json
+    list: true
+    fields:
+      - {name: title, label: Category title, type: string, required: true}
+      - {name: items, label: Skills, type: string, list: true}
+      - {name: visible, label: Show on portfolio, type: boolean}
+      - {name: order, label: Display order, type: number}
+  - name: experience
+    label: Work Experience
+    type: file
+    path: content/experience.json
+    format: json
+    list: true
+    fields:
+      - {name: date, label: Date range, type: string, required: true}
+      - {name: role, label: Job title, type: string, required: true}
+      - {name: company, label: Company, type: string, required: true}
+      - {name: points, label: Accomplishments, type: text, list: true}
+      - {name: tags, label: Technologies, type: string, list: true}
+      - {name: visible, label: Show on portfolio, type: boolean}
+      - {name: order, label: Display order, type: number}
+  - name: projects
+    label: Portfolio Projects
+    type: file
+    path: content/projects.json
+    format: json
+    list: true
+    fields:
+      - {name: title, label: Project name, type: string, required: true}
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: [Backend, AI, Enterprise]
+      - {name: description, label: Overview, type: text, required: true}
+      - {name: points, label: Key achievements, type: text, list: true}
+      - {name: tags, label: Technologies, type: string, list: true}
+      - {name: github, label: Specific GitHub repository URL, type: string, description: 'Leave blank if private. Do not use your general GitHub profile URL.'}
+      - {name: live, label: Live demo URL, type: string}
+      - {name: visible, label: Show on portfolio, type: boolean}
+      - {name: order, label: Display order, type: number}
+  - name: certificates
+    label: Certifications & Internships
+    type: file
+    path: content/certificates.json
+    format: json
+    list: true
+    fields:
+      - {name: title, label: Credential title, type: string, required: true}
+      - {name: issuer, label: Issuing organization, type: string, required: true}
+      - {name: type, label: Document type, type: string}
+      - name: category
+        label: Category
+        type: select
+        options:
+          values:
+            - {name: training, label: Certificates and CPD}
+            - {name: internship, label: Internships}
+      - {name: program, label: Program description, type: text}
+      - {name: dateText, label: Date text, type: string}
+      - {name: sortDate, label: Date for sorting, type: date}
+      - {name: credentialId, label: Credential ID, type: string}
+      - {name: idLabel, label: ID label, type: string}
+      - {name: award, label: Award, type: string}
+      - {name: featured, label: Featured achievement, type: boolean}
+      - name: image
+        label: Preview image
+        type: image
+        options: {media: certificate_images}
+      - name: file
+        label: Original PDF or image
+        type: file
+        options: {media: certificate_documents, categories: [image, document]}
+      - name: fileType
+        label: Original file format
+        type: select
+        options:
+          values: [PDF, Image]
+      - {name: verificationUrl, label: Public verification link, type: string}
+      - {name: visible, label: Show on portfolio, type: boolean}
+      - {name: order, label: Display order, type: number}
