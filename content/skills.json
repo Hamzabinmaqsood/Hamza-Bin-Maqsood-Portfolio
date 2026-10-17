@@ -3,8 +3,8 @@
     "title": "Backend Engineering",
     "items": [
       "Python",
-      "Django",
       "FastAPI",
+      "Django",
       "REST APIs",
       "JWT Authentication",
       "API Integration"
