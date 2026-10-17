@@ -1,208 +1,101 @@
-const $ = (selector, scope = document) => scope.querySelector(selector);
-const $$ = (selector, scope = document) =>
-  Array.from(scope.querySelectorAll(selector));
+/* Lightweight portfolio renderer. Content lives in /content/*.json for Pages CMS. */
+(() => {
+  'use strict';
+  const $ = (selector, parent = document) => parent.querySelector(selector);
+  const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+  const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const safeURL = (value) => {
+    if (typeof value !== 'string') return '';
+    const v = value.trim();
+    // Only public https links for projects.
+    return /^https:\/\/[^\s]+$/i.test(v) ? v : '';
+  };
+  const visibleItems = (items) => (Array.isArray(items) ? items : []).filter(x => x && x.visible !== false).sort((a,b) => (Number(a.order) || 999) - (Number(b.order) || 999));
+  const stat = (id, count) => { const el = $(id); if (el) el.textContent = String(count).padStart(2,'0'); };
 
-const navToggle = $('#navToggle');
-const navMenu = $('#navMenu');
-
-navToggle.addEventListener('click', () => {
-  const isOpen = navMenu.classList.toggle('open');
-  navToggle.setAttribute('aria-expanded', String(isOpen));
-});
-
-$$('#navMenu a').forEach((link) => {
-  link.addEventListener('click', () => {
-    navMenu.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
+  const navToggle = $('#navToggle');
+  const navMenu = $('#navMenu');
+  const closeMenu = () => { navMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); navToggle.setAttribute('aria-label','Open menu'); };
+  navToggle?.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded',String(open));
+    navToggle.setAttribute('aria-label',open ? 'Close menu' : 'Open menu');
   });
-});
-
-$('#year').textContent = new Date().getFullYear();
-
-function createSkillCard(skill) {
-  return `
-    <article class="skill-card">
-      <h3>${skill.title}</h3>
-      <ul class="skill-list">
-        ${skill.items.map((item) => `<li>${item}</li>`).join('')}
-      </ul>
-    </article>
-  `;
-}
-
-function createTimelineItem(item) {
-  return `
-    <article class="timeline-item">
-      <div class="timeline-date">${item.date}</div>
-      <div>
-        <h3>${item.role}</h3>
-        <p class="timeline-company">${item.company}</p>
-        <ul class="timeline-points">
-          ${item.points.map((point) => `<li>${point}</li>`).join('')}
-        </ul>
-        <div class="timeline-tags">
-          ${item.tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}
-        </div>
-      </div>
-    </article>
-  `;
-}
-
-function createProjectCard(project) {
-  const githubLink = project.github
-    ? `<a href="${project.github}" target="_blank" rel="noopener">GitHub</a>`
-    : `<span class="muted-link">Private / Company Project</span>`;
-
-  const liveLink = project.live
-    ? `<a href="${project.live}" target="_blank" rel="noopener">Live Demo</a>`
-    : '';
-
-  return `
-    <article class="project-card" data-category="${project.category}">
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
-      <ul class="project-points">
-        ${project.points.map((point) => `<li>${point}</li>`).join('')}
-      </ul>
-      <div class="project-tags">
-        ${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}
-      </div>
-      <div class="project-links">
-        ${githubLink}
-        ${liveLink}
-      </div>
-    </article>
-  `;
-}
-
-function renderSkills() {
-  $('#skillsGrid').innerHTML = portfolioData.skills
-    .map(createSkillCard)
-    .join('');
-}
-
-function renderExperience() {
-  $('#experienceTimeline').innerHTML = portfolioData.experience
-    .map(createTimelineItem)
-    .join('');
-}
-
-function getCategories() {
-  return [
-    'All',
-    ...new Set(portfolioData.projects.map((project) => project.category)),
-  ];
-}
-
-function renderFilters() {
-  $('#projectFilters').innerHTML = getCategories()
-    .map(
-      (category, index) => `
-      <button class="filter-btn ${index === 0 ? 'active' : ''}" data-filter="${category}">${category}</button>
-    `,
-    )
-    .join('');
-
-  $$('.filter-btn').forEach((button) => {
-    button.addEventListener('click', () => {
-      $$('.filter-btn').forEach((btn) => btn.classList.remove('active'));
-      button.classList.add('active');
-      renderProjects(button.dataset.filter);
-    });
+  $$('#navMenu a').forEach(a => a.addEventListener('click',closeMenu));
+  document.addEventListener('keydown',e => { if(e.key==='Escape') closeMenu(); });
+  document.addEventListener('click',e => { if(navMenu.classList.contains('open') && !e.target.closest('.nav')) closeMenu(); });
+  const themeToggle = $('#themeToggle');
+  try { if(localStorage.getItem('hbm-theme')==='light') document.documentElement.dataset.theme='light'; } catch(e) {}
+  function refreshThemeButton() { const light = document.documentElement.dataset.theme === 'light'; themeToggle?.setAttribute('aria-label',`Switch to ${light ? 'dark' : 'light'} theme`); }
+  refreshThemeButton();
+  themeToggle?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme=next;
+    try { localStorage.setItem('hbm-theme',next); } catch(e) {}
+    refreshThemeButton();
   });
-}
-
-function renderProjects(filter = 'All') {
-  const projects =
-    filter === 'All'
-      ? portfolioData.projects
-      : portfolioData.projects.filter((project) => project.category === filter);
-
-  $('#projectsGrid').innerHTML = projects.map(createProjectCard).join('');
-}
-
-function initRevealAnimations() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 },
-  );
-
-  $$('.reveal').forEach((element) => observer.observe(element));
-}
-
-renderSkills();
-renderExperience();
-renderFilters();
-renderProjects();
-initRevealAnimations();
-
-const backToTopLink = document.querySelector('.footer a[href="#top"]');
-if (backToTopLink) {
-  backToTopLink.addEventListener('click', (event) => {
-    event.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-// Typing animation utilities
-function sleep(ms) {
-  return new Promise((res) => setTimeout(res, ms));
-}
-
-async function typeText(el, text, speed = 60) {
-  if (!el) return;
-  el.textContent = '';
-  for (let i = 0; i < text.length; i++) {
-    el.textContent += text[i];
-    await sleep(speed + Math.random() * 40);
+  $('#year').textContent = new Date().getFullYear();
+  const progress = $('#readingProgress');
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if(progress) progress.style.width = `${max > 0 ? (scrollY/max)*100 : 0}%`;
+  };
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if('IntersectionObserver' in window){
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ $$('#navMenu a').forEach(a=>a.classList.toggle('active',a.hash==='#'+e.target.id)); }});
+    },{rootMargin:'-20% 0px -65% 0px'});
+    $$('main section[id]').forEach(el=>observer.observe(el));
   }
-}
 
-async function deleteText(el, speed = 40) {
-  if (!el) return;
-  while (el.textContent.length) {
-    el.textContent = el.textContent.slice(0, -1);
-    await sleep(speed + Math.random() * 30);
-  }
-}
-
-async function startTypingSequence() {
-  const eyebrow = document.getElementById('typed-eyebrow');
-  const main = document.getElementById('typed-main');
-
-  try {
-    // initial eyebrow line
-    await typeText(eyebrow, 'Python Backend Developer', 80);
-    await sleep(900);
-    await deleteText(eyebrow, 40);
-
-    // cycle main short phrases
-    const phrases = [
-      'Building reliable APIs',
-      'Backend systems at scale',
-      'AI-powered products',
-    ];
-
-    while (true) {
-      for (const p of phrases) {
-        await typeText(main, p, 70);
-        await sleep(1200);
-        await deleteText(main, 50);
-        await sleep(220);
+  const load = async (path) => {
+    const response = await fetch(path, { cache:'no-cache' });
+    if(!response.ok) throw new Error(`Failed to load ${path}: ${response.status}`);
+    return response.json();
+  };
+  const renderSkills = (items) => {
+    $('#skillsGrid').innerHTML = items.map((s,i) => `<article class="skill-card"><span class="skill-num">AREA ${String(i+1).padStart(2,'0')}</span><h3>${escapeHTML(s.title)}</h3><ul class="skill-list">${(Array.isArray(s.items)?s.items:[]).map(x=>`<li>${escapeHTML(x)}</li>`).join('')}</ul></article>`).join('') || '<p class="empty-state">Skills coming soon.</p>';
+  };
+  const renderExperience = (items) => {
+    $('#experienceTimeline').innerHTML = items.map(x=>`<article class="timeline-item"><div class="timeline-date">${escapeHTML(x.date)}</div><div><div class="timeline-role"><h3>${escapeHTML(x.role)}</h3><span class="timeline-company">${escapeHTML(x.company)}</span></div><ul class="timeline-points">${(Array.isArray(x.points)?x.points:[]).map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul><div class="timeline-tags">${(Array.isArray(x.tags)?x.tags:[]).map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join('')}</div></div></article>`).join('') || '<p class="empty-state">Experience coming soon.</p>';
+  };
+  const projectMarkup = (project,index) => {
+    const github=safeURL(project.github), live=safeURL(project.live);
+    return `<article class="project-card"><div class="project-card-top"><span class="project-card-index">PROJECT / ${String(index+1).padStart(2,'0')}</span><span class="project-cat">${escapeHTML(project.category || 'Project')}</span></div><h3>${escapeHTML(project.title)}</h3><p>${escapeHTML(project.description)}</p><ul class="project-points">${(Array.isArray(project.points)?project.points:[]).slice(0,3).map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul><div class="project-tags">${(Array.isArray(project.tags)?project.tags:[]).map(t=>`<span>${escapeHTML(t)}</span>`).join('')}</div><div class="project-links">${github?`<a href="${escapeHTML(github)}" target="_blank" rel="noopener noreferrer" aria-label="View ${escapeHTML(project.title)} on GitHub">Source code ↗</a>`:''}${live?`<a href="${escapeHTML(live)}" target="_blank" rel="noopener noreferrer" aria-label="View demo for ${escapeHTML(project.title)}">Live website ↗</a>`:''}${!github&&!live?'<span class="muted-link">Project details available on request</span>':''}</div></article>`;
+  };
+  const renderProjects = (items) => {
+    const categories = ['All',...new Set(items.map(p=>p.category).filter(Boolean))];
+    let active = 'All';
+    const bar = $('#projectFilters');
+    const grid = $('#projectsGrid');
+    const redraw = () => {
+      $$('.filter-btn',bar).forEach(b => b.setAttribute('aria-pressed',String(b.dataset.category===active)));
+      const filtered = active==='All' ? items : items.filter(p=>p.category===active);
+      grid.innerHTML = filtered.map(projectMarkup).join('') || '<p class="empty-state">No projects in this category yet.</p>';
+    };
+    bar.innerHTML = categories.map(cat=>`<button type="button" class="filter-btn" data-category="${escapeHTML(cat)}" aria-pressed="${cat==='All'}">${escapeHTML(cat)}${cat==='All' ? ` <span>(${items.length})</span>` : ''}</button>`).join('');
+    bar.addEventListener('click',e=>{const btn=e.target.closest('button[data-category]');if(!btn)return;active=btn.dataset.category;redraw();});
+    redraw();
+  };
+  async function init() {
+    const requests = await Promise.allSettled([
+      load('content/skills.json'), load('content/experience.json'), load('content/projects.json'), load('content/site.json')
+    ]);
+    const grids = ['#skillsGrid','#experienceTimeline','#projectsGrid'];
+    requests.forEach((result,i)=>{if(result.status==='rejected'){if(!$(grids[i]).children.length)$(grids[i]).innerHTML='<p class="empty-state">Content could not load. Please refresh or try the live website.</p>'; console.warn(result.reason);}});
+    if(requests[0].status==='fulfilled') renderSkills(visibleItems(requests[0].value));
+    if(requests[1].status==='fulfilled') {const items=visibleItems(requests[1].value);renderExperience(items);stat('#statExperience',items.length);}
+    if(requests[2].status==='fulfilled') {const items=visibleItems(requests[2].value);renderProjects(items);stat('#statProjects',items.length);}
+    if(requests[3].status==='fulfilled') {
+      const site=requests[3].value;
+      for(const [key,id] of Object.entries({heroIntro:'.hero-intro',heroOpening:'#heroOpening',heroAccent:'#heroAccent',heroClosing:'#heroClosing',heroDescription:'#heroDescription',aboutParagraph1:'#aboutP1',aboutParagraph2:'#aboutP2',location:'#aboutLocation',contactDescription:'#contactDescription'})) {
+        if(typeof site[key]==='string' && $(id)) $(id).textContent=site[key];
+      }
+      if(typeof site.email==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.email)) {
+        $('#contactEmailLink').href=`mailto:${site.email}`;
+        $('#contactEmailAction').href=`mailto:${site.email}?subject=${encodeURIComponent('Portfolio inquiry')}`;
       }
     }
-  } catch (err) {
-    // fail silently
-    console.error('Typing sequence error', err);
   }
-}
-
-// Start typing after small delay so layout settles
-setTimeout(startTypingSequence, 700);
+  init();
+})();

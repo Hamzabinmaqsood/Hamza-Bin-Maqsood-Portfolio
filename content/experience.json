@@ -1,0 +1,76 @@
+[
+  {
+    "date": "Nov 2025 — Present",
+    "role": "Backend Developer",
+    "company": "SyntecX Solutions",
+    "points": [
+      "Developing and maintaining backend modules for enterprise software systems.",
+      "Working with APIs, databases, authentication, and workflow-based features.",
+      "Debugging existing systems and improving backend reliability with senior developers."
+    ],
+    "tags": [
+      "Python",
+      "REST APIs",
+      "Databases",
+      "Backend Development",
+      "Debugging"
+    ],
+    "visible": true,
+    "order": 1
+  },
+  {
+    "date": "Sep 2025 — Nov 2025",
+    "role": "Python Backend Developer Intern",
+    "company": "IDIOSOL",
+    "points": [
+      "Worked on backend development tasks involving application workflows and data handling.",
+      "Practiced modular backend development, debugging, and database-driven logic.",
+      "Improved understanding of professional software workflows and documentation."
+    ],
+    "tags": [
+      "Python",
+      "OOP",
+      "Backend Logic",
+      "Database Workflows"
+    ],
+    "visible": true,
+    "order": 2
+  },
+  {
+    "date": "Jun 2025 — Aug 2025",
+    "role": "Web Development Intern",
+    "company": "AJK Information Technology Board",
+    "points": [
+      "Worked on web development tasks involving responsive interfaces and API concepts.",
+      "Built and tested components while strengthening software development fundamentals.",
+      "Collaborated in a professional environment and practiced project-based delivery."
+    ],
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Bootstrap",
+      "Web Development"
+    ],
+    "visible": true,
+    "order": 3
+  },
+  {
+    "date": "Jul 2024 — Oct 2024",
+    "role": "Full Stack Developer Intern",
+    "company": "Hi-Tech Solution",
+    "points": [
+      "Worked on a full-stack Python web application involving frontend pages, backend logic, SQLite database operations, CRUD functionality, form handling, validation, search, and debugging. Built a Student Records Management System to understand complete full-stack workflows, routing, database connectivity, and software architecture.",
+      "Practiced CRUD operations, form handling, validation, and debugging.",
+      "Improved understanding of full-stack workflows and software architecture."
+    ],
+    "tags": [
+      "Full Stack",
+      "Database",
+      "CRUD",
+      "Debugging"
+    ],
+    "visible": true,
+    "order": 4
+  }
+]

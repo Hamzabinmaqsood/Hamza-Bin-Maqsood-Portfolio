@@ -1,0 +1,79 @@
+[
+  {
+    "title": "Backend Engineering",
+    "items": [
+      "Python",
+      "Django",
+      "FastAPI",
+      "REST APIs",
+      "JWT Authentication",
+      "API Integration"
+    ],
+    "visible": true,
+    "order": 1
+  },
+  {
+    "title": "Databases",
+    "items": [
+      "PostgreSQL",
+      "MySQL",
+      "SQLite",
+      "SQL Queries",
+      "Database Design",
+      "ORM Concepts"
+    ],
+    "visible": true,
+    "order": 2
+  },
+  {
+    "title": "AI & Automation",
+    "items": [
+      "AI API Integration",
+      "LLM Integration",
+      "Prompt Engineering",
+      "NLP Basics",
+      "Recommendation Workflows"
+    ],
+    "visible": true,
+    "order": 3
+  },
+  {
+    "title": "Tools & Workflow",
+    "items": [
+      "Git",
+      "GitHub",
+      "Postman",
+      "Swagger",
+      "VS Code",
+      "Debugging"
+    ],
+    "visible": true,
+    "order": 4
+  },
+  {
+    "title": "Frontend Fundamentals",
+    "items": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Bootstrap",
+      "React Basics",
+      "Responsive Design"
+    ],
+    "visible": true,
+    "order": 5
+  },
+  {
+    "title": "Professional Strengths",
+    "items": [
+      "Problem Solving",
+      "Clean Code",
+      "Documentation",
+      "Team Collaboration",
+      "Fast Learning",
+      "Ownership"
+    ],
+    "visible": true,
+    "order": 6
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "heroIntro": "Hello, I'm Hamza Bin Maqsood.",
+  "heroOpening": "Building digital",
+  "heroAccent": "systems",
+  "heroClosing": "that work beautifully.",
+  "heroDescription": "I engineer dependable APIs, clean backend architecture, and thoughtful AI-powered workflows with Python, Django, FastAPI, and PostgreSQL.",
+  "aboutParagraph1": "I'm a Software Engineering graduate focused on Python backend development, REST API design, relational databases, authentication workflows, and AI-powered applications. I enjoy turning complex requirements into maintainable, dependable software.",
+  "aboutParagraph2": "My experience includes enterprise application workflows, internships, and personal projects. I approach each challenge with curiosity, clear communication, and a strong focus on fundamentals.",
+  "location": "Islamabad, Pakistan",
+  "contactDescription": "Interested in backend development, thoughtful products, or AI integrations? I'd love to hear about your idea.",
+  "email": "hbinmaqsood@gmail.com",
+  "seoTitle": "Hamza Bin Maqsood | Python Backend Developer & Software Engineer",
+  "seoDescription": "Hamza Bin Maqsood is a Python backend developer and software engineer building reliable APIs, Django and FastAPI applications, PostgreSQL systems, and AI integrations. Explore projects, experience, and certifications."
+}
