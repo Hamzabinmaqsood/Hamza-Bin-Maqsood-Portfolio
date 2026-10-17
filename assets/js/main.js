@@ -93,7 +93,32 @@
       }
       if(typeof site.email==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.email)) {
         $('#contactEmailLink').href=`mailto:${site.email}`;
-        $('#contactEmailAction').href=`mailto:${site.email}?subject=${encodeURIComponent('Portfolio inquiry')}`;
+      }
+
+      // WhatsApp contact buttons. The number is editable in Pages CMS.
+      // The fallback is this portfolio owner's number until they save the CMS field.
+      const whatsappNumber=String(site.whatsapp || '+923473144690').replace(/\D/g,'');
+      if(/^\d{10,15}$/.test(whatsappNumber)) {
+        const message=encodeURIComponent('Hello Hamza, I visited your portfolio and would like to connect.');
+        const whatsappURL=`https://wa.me/${whatsappNumber}?text=${message}`;
+        for(const link of [$('.nav-contact'),$('#contactEmailAction')]) {
+          if(!link) continue;
+          link.href=whatsappURL;
+          link.target='_blank';
+          link.rel='noopener noreferrer';
+        }
+        const action=$('#contactEmailAction');
+        if(action) action.innerHTML='Chat on WhatsApp <span aria-hidden="true">↗</span>';
+        const links=$('.contact-links');
+        if(links && !$('#contactWhatsAppLink')) {
+          const whatsappLink=document.createElement('a');
+          whatsappLink.id='contactWhatsAppLink';
+          whatsappLink.textContent='WhatsApp ↗';
+          whatsappLink.href=whatsappURL;
+          whatsappLink.target='_blank';
+          whatsappLink.rel='noopener noreferrer';
+          links.prepend(whatsappLink);
+        }
       }
     }
   }
