@@ -30,6 +30,7 @@ content:
       - {name: location, label: Location, type: string}
       - {name: contactDescription, label: Contact text, type: text}
       - {name: email, label: Contact email, type: string}
+      - {name: whatsapp, label: WhatsApp number (with country code), type: string, description: "Example +923473144690. Do not include spaces or dashes."}
   - name: skills
     label: Skills & Technologies
     type: file
@@ -94,3 +95,24 @@ content:
             - {name: internship, label: Internships}
       - {name: program, label: Program description, type: text}
       - {name: dateText, label: Date text, type: string}
+      - {name: sortDate, label: Date for sorting, type: date}
+      - {name: credentialId, label: Credential ID, type: string}
+      - {name: idLabel, label: ID label, type: string}
+      - {name: award, label: Award, type: string}
+      - {name: featured, label: Featured achievement, type: boolean}
+      - name: image
+        label: Preview image
+        type: image
+        options: {media: certificate_images}
+      - name: file
+        label: Original PDF or image
+        type: file
+        options: {media: certificate_documents, categories: [image, document]}
+      - name: fileType
+        label: Original file format
+        type: select
+        options:
+          values: [PDF, Image]
+      - {name: verificationUrl, label: Public verification link, type: string}
+      - {name: visible, label: Show on portfolio, type: boolean}
+      - {name: order, label: Display order, type: number}
