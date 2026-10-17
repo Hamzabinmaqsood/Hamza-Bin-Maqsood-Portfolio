@@ -7,8 +7,7 @@
       "Django",
       "REST APIs",
       "JWT Authentication",
-      "API Integration",
-      "Test"
+      "API Integration"
     ],
     "visible": true,
     "order": 1
